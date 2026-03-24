@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillAcademy – Learn & Grow</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo"><i class="fas fa-graduation-cap"></i> SkillAcademy</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-auth" id="navAuth">
+      <button class="btn btn-outline" onclick="openModal('loginModal')">Login</button>
+      <button class="btn btn-primary" onclick="openModal('registerModal')">Sign Up</button>
+    </div>
+    <div class="nav-user hidden" id="navUser">
+      <span id="welcomeUser"></span>
+      <button class="btn btn-outline" onclick="logout()">Logout</button>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="hero-badge"><i class="fas fa-bolt"></i> #1 Learning Platform</span>
+    <h1>Master New Skills.<br/><span class="gradient-text">Transform Your Career.</span></h1>
+    <p>Join 50,000+ learners accessing 500+ expert-led courses in tech, design, business & more.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" onclick="openModal('registerModal')"><i class="fas fa-rocket"></i> Get Started Free</button>
+      <button class="btn btn-ghost btn-lg" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})"><i class="fas fa-play-circle"></i> Browse Courses</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>50K+</strong><span>Students</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>500+</strong><span>Courses</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>120+</strong><span>Instructors</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong>4.9★</strong><span>Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="floating-card fc1"><div class="fc-icon"><i class="fab fa-python"></i></div><div><strong>Python Masterclass</strong><br/><small>⭐ 4.9 • 12K students</small></div></div>
+    <div class="floating-card fc2"><div class="fc-icon react"><i class="fab fa-react"></i></div><div><strong>React & Next.js</strong><br/><small>⭐ 4.8 • 8K students</small></div></div>
+    <div class="floating-card fc3"><div class="fc-icon design"><i class="fas fa-palette"></i></div><div><strong>UI/UX Design</strong><br/><small>⭐ 4.9 • 6K students</small></div></div>
+    <div class="hero-circle"></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="container">
+    <h2 class="section-title">Browse <span class="gradient-text">Categories</span></h2>
+    <p class="section-sub">Find courses across the most in-demand fields</p>
+    <div class="categories-grid">
+      <div class="cat-card" onclick="filterCourses('development',null)"><i class="fas fa-code"></i><span>Development</span><small>150+ courses</small></div>
+      <div class="cat-card" onclick="filterCourses('design',null)"><i class="fas fa-palette"></i><span>Design</span><small>80+ courses</small></div>
+      <div class="cat-card" onclick="filterCourses('data',null)"><i class="fas fa-chart-bar"></i><span>Data Science</span><small>60+ courses</small></div>
+      <div class="cat-card" onclick="filterCourses('business',null)"><i class="fas fa-briefcase"></i><span>Business</span><small>70+ courses</small></div>
+      <div class="cat-card" onclick="filterCourses('marketing',null)"><i class="fas fa-bullhorn"></i><span>Marketing</span><small>45+ courses</small></div>
+      <div class="cat-card" onclick="filterCourses('security',null)"><i class="fas fa-shield-alt"></i><span>Cybersecurity</span><small>35+ courses</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="courses-section" id="courses">
+  <div class="container">
+    <h2 class="section-title">Featured <span class="gradient-text">Courses</span></h2>
+    <p class="section-sub">Hand-picked by our experts for maximum impact</p>
+    <div class="courses-filter">
+      <button class="filter-btn active" onclick="filterCourses('all',this)">All</button>
+      <button class="filter-btn" onclick="filterCourses('development',this)">Development</button>
+      <button class="filter-btn" onclick="filterCourses('design',this)">Design</button>
+      <button class="filter-btn" onclick="filterCourses('data',this)">Data Science</button>
+      <button class="filter-btn" onclick="filterCourses('business',this)">Business</button>
+    </div>
+    <div class="courses-grid" id="coursesGrid"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="about">
+  <div class="container">
+    <h2 class="section-title">Why <span class="gradient-text">SkillAcademy?</span></h2>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-video"></i></div><h3>HD Video Lessons</h3><p>Crystal-clear, studio-quality content you can watch at your own pace.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-certificate"></i></div><h3>Verified Certificates</h3><p>Industry-recognized certificates to showcase to employers.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-users"></i></div><h3>Community Access</h3><p>Connect with 50K+ learners and instructors globally.</p></div>
+      <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Learn Anywhere</h3><p>Access on any device — desktop, tablet, or mobile.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="dashboard hidden" id="dashboard">
+  <div class="container">
+    <h2 class="section-title">My <span class="gradient-text">Dashboard</span></h2>
+    <div class="dashboard-stats">
+      <div class="dash-stat"><i class="fas fa-book-open"></i><div><h4 id="enrolledCount">0</h4><p>Enrolled Courses</p></div></div>
+      <div class="dash-stat"><i class="fas fa-clock"></i><div><h4 id="hoursLearned">0</h4><p>Hours Learned</p></div></div>
+      <div class="dash-stat"><i class="fas fa-certificate"></i><div><h4 id="certCount">0</h4><p>Certificates</p></div></div>
+    </div>
+    <h3 style="margin:2rem 0 1rem;">My Enrolled Courses</h3>
+    <div class="courses-grid" id="enrolledList"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><a href="#" class="logo" style="font-size:1.4rem"><i class="fas fa-graduation-cap"></i> SkillAcademy</a><p style="margin-top:.8rem;color:#94a3b8">Empowering learners worldwide.</p></div>
+      <div><h4>Quick Links</h4><ul><li><a href="#courses">Courses</a></li><li><a href="#categories">Categories</a></li><li><a href="#about">About</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+      <div><h4>Follow Us</h4><div class="socials"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2025 SkillAcademy. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+    <div class="modal-header"><div class="modal-icon"><i class="fas fa-sign-in-alt"></i></div><h2>Welcome Back</h2><p>Login to continue learning</p></div>
+    <div id="loginAlert" class="alert hidden"></div>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="loginEmail" placeholder="your@email.com" required/>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div class="input-wrap">
+          <input type="password" id="loginPassword" placeholder="••••••••" required/>
+          <i class="fas fa-eye eye-toggle" onclick="togglePw('loginPassword',this)"></i>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Login <i class="fas fa-arrow-right"></i></button>
+    </form>
+    <p class="switch-link">Don't have an account? <a href="#" onclick="switchModal('loginModal','registerModal')">Sign up</a></p>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('registerModal')"><i class="fas fa-times"></i></button>
+    <div class="modal-header"><div class="modal-icon"><i class="fas fa-user-plus"></i></div><h2>Create Account</h2><p>Start your learning journey today</p></div>
+    <div id="registerAlert" class="alert hidden"></div>
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Full Name</label>
+        <input type="text" id="regName" placeholder="John Doe" required/>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="regEmail" placeholder="your@email.com" required/>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div class="input-wrap">
+          <input type="password" id="regPassword" placeholder="Min. 8 characters" required minlength="8" oninput="checkStrength(this.value)"/>
+          <i class="fas fa-eye eye-toggle" onclick="togglePw('regPassword',this)"></i>
+        </div>
+        <div class="pw-strength" id="pwStrength"><div class="pw-bar" id="pwBar"></div></div>
+        <small id="pwLabel" style="color:#94a3b8"></small>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Confirm Password</label>
+        <input type="password" id="regConfirm" placeholder="Repeat password" required/>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" id="registerBtn">Create Account <i class="fas fa-arrow-right"></i></button>
+    </form>
+    <p class="switch-link">Already have an account? <a href="#" onclick="switchModal('registerModal','loginModal')">Login</a></p>
+  </div>
+</div>
+
+<!-- COURSE DETAIL MODAL -->
+<div class="modal-overlay" id="courseModal">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeModal('courseModal')"><i class="fas fa-times"></i></button>
+    <div id="courseModalContent"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
